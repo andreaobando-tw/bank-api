@@ -1,45 +1,46 @@
 package com.tw.bankapi.entities;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Timestamp;
+import java.util.Objects;
 
 @Entity
-@Table(name = "accounts")
-public class Account {
-
-    @Id
+@Table(name = "accounts", schema = "public", catalog = "postgres")
+public class AccountsEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Id
+    @Column(name = "id")
+    private long id;
+    @Basic
+    @Column(name = "balance")
     private Double balance;
+    @Basic
     @Column(name = "user_id")
-    private Long userId;
+    private long userId;
+    @Basic
     @Column(name = "created_at")
-    @Temporal(TemporalType.DATE)
-    private Date createdAt;
+    private Timestamp createdAt;
+    @Basic
     @Column(name = "updated_at")
-    @Temporal(TemporalType.DATE)
-    private Date updatedAt;
+    private Timestamp updatedAt;
+    @Basic
     @Column(name = "number_account")
     private String numberAccount;
+    @Basic
     @Column(name = "name_account")
     private String nameAccount;
+    @Basic
     @Column(name = "type_account")
     private String typeAccount;
+    @Basic
     @Column(name = "state_account")
     private boolean stateAccount;
 
-    @PrePersist
-    public void prePersist() {
-        createdAt = new Date();
-        updatedAt = new Date();
-        stateAccount=true;
-    }
-
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -51,27 +52,27 @@ public class Account {
         this.balance = balance;
     }
 
-    public Long getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 
-    public Date getCreatedAt() {
+    public Timestamp getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public Timestamp getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -107,6 +108,16 @@ public class Account {
         this.stateAccount = stateAccount;
     }
 
-    private static final long serialVersionUID = 1L;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AccountsEntity that = (AccountsEntity) o;
+        return id == that.id && userId == that.userId && stateAccount == that.stateAccount && Objects.equals(balance, that.balance) && Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt) && Objects.equals(numberAccount, that.numberAccount) && Objects.equals(nameAccount, that.nameAccount) && Objects.equals(typeAccount, that.typeAccount);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, balance, userId, createdAt, updatedAt, numberAccount, nameAccount, typeAccount, stateAccount);
+    }
 }
