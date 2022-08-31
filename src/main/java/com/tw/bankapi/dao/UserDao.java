@@ -20,4 +20,8 @@ public class UserDao {
     public List<UsersEntity> findAll(){
         return userRepository.findAll();
     }
+
+    public UsersEntity findByUserNameAndPassword (String userName, String password){
+        return userRepository.findByNameUserAndPasswordUser(userName, password);
+    }
 }
