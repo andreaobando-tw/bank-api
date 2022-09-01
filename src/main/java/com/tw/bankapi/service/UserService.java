@@ -2,7 +2,8 @@ package com.tw.bankapi.service;
 
 import com.tw.bankapi.dao.UserDao;
 import com.tw.bankapi.entities.UsersEntity;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.tw.bankapi.util.BankApiResponse;
+import com.tw.bankapi.util.exceptions.BankApiException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,5 +20,19 @@ public class UserService {
 
     public List<UsersEntity> findAll(){
         return userDao.findAll();
+    }
+
+    public UsersEntity findByUserNameAndPassword(String userName, String password){
+        if(userName == null || userName.isEmpty())
+        {
+            throw new BankApiException(BankApiResponse.SUCCESSFUL_TRANSACTION);
+        }
+
+        UsersEntity user = userDao.findByUserNameAndPassword(userName, password);
+
+        if (user == null){
+            throw new BankApiException(BankApiResponse.USER_NO_FOUND_LOGIN);
+        }
+        return user;
     }
 }
