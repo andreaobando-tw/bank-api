@@ -2,8 +2,9 @@ package com.tw.bankapi.controller;
 
 import com.tw.bankapi.mapping.dto.UserDTO;
 import com.tw.bankapi.mapping.interfaces.UserMapper;
-import com.tw.bankapi.params.mapping.dto.LoginParam;
+import com.tw.bankapi.params.LoginParam;
 import com.tw.bankapi.service.UserService;
+import com.tw.bankapi.util.BankApiResponse;
 import com.tw.bankapi.util.ResponseInformation;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,12 +26,14 @@ public class UserController extends ResponseManager{
     }
 
     @GetMapping(value = "findAll", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<UserDTO> findAll() {
-        return UserMapper.INSTANCE.map(userService.findAll());
+    public ResponseEntity<Object> findAll() {
+        List<UserDTO> userList = UserMapper.INSTANCE.map(userService.findAll());
+        return getResponseEntity(BankApiResponse.SUCCESSFUL_TRANSACTION, userList);
     }
 
     @PostMapping(value ="login", produces = MediaType.APPLICATION_JSON_VALUE)
-    public UserDTO FindByUserNameAndPassword(@RequestBody LoginParam loginParam){
-        return UserMapper.INSTANCE.entityToDto(userService.findByUserNameAndPassword(loginParam.getUsername(), loginParam.getPassword()));
+    public ResponseEntity<Object> findByUserNameAndPassword(@RequestBody LoginParam loginParam) {
+        UserDTO userDto = UserMapper.INSTANCE.entityToDto(userService.findByUserNameAndPassword(loginParam.getUsername(), loginParam.getPassword()));
+        return getResponseEntity(BankApiResponse.SUCCESSFUL_TRANSACTION, userDto);
     }
 }

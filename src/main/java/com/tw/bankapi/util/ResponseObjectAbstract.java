@@ -5,7 +5,6 @@ public class ResponseObjectAbstract {
     private String code;
     private String message;
     private Object data = null;
-    private String appInfo;
 
     public Integer getStatus() {
         return status;
@@ -49,22 +48,13 @@ public class ResponseObjectAbstract {
                 '}';
     }
 
-    public ResponseObjectAbstract(Integer status, String code, String message, Object data, String appInfo) {
+    public ResponseObjectAbstract(Integer status, String code, String message, Object data) {
         this.status = status;
         this.code = code;
         this.message = message;
         this.data = data;
-        this.appInfo = appInfo;
     }
 
     public ResponseObjectAbstract() {
-    }
-
-    public String getAppInfo() {
-        return appInfo;
-    }
-
-    public void setAppInfo(String appInfo) {
-        this.appInfo = appInfo;
     }
 }

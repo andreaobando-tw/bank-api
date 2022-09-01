@@ -1,5 +1,6 @@
 package com.tw.bankapi.util;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -9,7 +10,7 @@ public class ResponseManager {
 
     ResponseInformation responseInformation;
     public ResponseManager(ResponseInformation responseInformation){
-        responseInformation = responseInformation;
+        this.responseInformation = responseInformation;
     }
 
     public ResponseEntity<Object> getResponseEntity(KeyResponseInterface responseCode, Object responseData) {
