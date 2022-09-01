@@ -25,7 +25,7 @@ public class UserService {
     public UsersEntity findByUserNameAndPassword(String userName, String password){
         if(userName == null || userName.isEmpty())
         {
-            throw new BankApiException(BankApiResponse.SUCCESSFUL_TRANSACTION);
+            throw new BankApiException(BankApiResponse.INCOMPLETE_PARAMETERS);
         }
 
         UsersEntity user = userDao.findByUserNameAndPassword(userName, password);
